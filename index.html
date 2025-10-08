@@ -101,17 +101,27 @@
     cols = floor(width / w);
     rows = floor(height / w);
     noStroke();
-    fill(175, 0, 0); // single color (red) for all dots
   }
   
   function draw() {
-    background(0); // or clear() if you want it overlayed
+    background(0); // black background
+    let centerX = width / 2;
+    let centerY = height / 2;
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
         let xpos = x * w;
         let ypos = y * w;
+  
+        // Calculate distance from center
+        let d = dist(xpos, ypos, centerX, centerY);
+        let maxDist = dist(0, 0, centerX, centerY);
+        let alpha = map(d, 0, maxDist, 50, 255); // more transparent near center
+  
+        // Noise-based size
         let n = noise(x * noiseScale, y * noiseScale, frameCount * 0.01);
-        let size = map(n, 0, 1, 2, 8);
+        let size = map(n, 0, 1, 0, 8); // min size 0
+  
+        fill(0, 0, 80, alpha); // dark navy with varying alpha
         ellipse(xpos, ypos, size);
       }
     }
