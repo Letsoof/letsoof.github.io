@@ -91,40 +91,63 @@
   
   <div id="p5-container" style="position: fixed; top: 0; left: 0; z-index: -2; width: 100%; height: 100%;"></div> 
   <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.min.js"></script> 
-  <script> let w = 25; // spacing between dots 
+  <script> 
+    let w = 25; // spacing between dots 
     let noiseScale = 0.02; 
     let cols, rows; 
     let particlePositions = []; 
+    
     function setup() { 
-      let canvas = createCanvas(window.innerWidth, window.innerHeight); canvas.parent('p5-container'); 
+      let canvas = createCanvas(window.innerWidth, window.innerHeight); 
+      canvas.parent('p5-container'); 
       colorMode(HSL, 360, 100, 100, 1); // define full ranges for HSL + alpha 
-      noStroke(); // Lower frame rate for performance 
-      frameRate(30); // Precompute particle positions 
+      noStroke(); 
+      
+      // Lower frame rate for performance 
+      frameRate(30); 
+      
+      // Precompute particle positions 
       cols = floor(width / w); 
       rows = floor(height / w); 
       for (let y = 0; y < rows; y++) { 
         for (let x = 0; x < cols; x++) { 
-          particlePositions.push({ x: x * w, y: y * w }); } 
-      } } 
-    function draw() { background(0); // black background 
-                     let centerX = width / 2; 
-                     let centerY = height / 2; 
-                     let maxDist = dist(0, 0, centerX, centerY); 
-                     for (let p of particlePositions) { // Noise-based size 
-                       let n = noise(p.x * noiseScale, p.y * noiseScale, frameCount * 0.05); 
-                       let size = map(n, 0, 1, 0, 8); // Brightness scales with size 
-                       let brightness = map(size, 0, 8, 40, 70); // dark navy range // Opacity decreases near center 
-                       let d = dist(p.x, p.y, centerX, centerY); 
-                       let alpha = map(d, 0, maxDist, 0.2, 1); // 0–1 range for HSL 
-                       mode fill(220, 100, brightness, alpha); // dark navy blue tone 
-                       ellipse(p.x, p.y, size); } } 
-    function windowResized() { resizeCanvas(window.innerWidth, window.innerHeight);
-                              particlePositions = []; 
-                              cols = floor(width / w); 
-                              rows = floor(height / w); 
-                              for (let y = 0; y < rows; y++) { 
-                                for (let x = 0; x < cols; x++) { 
-                                  particlePositions.push({ x: x * w, y: y * w }); } } } 
+          particlePositions.push({ x: x * w, y: y * w }); 
+        } 
+      } 
+    } 
+    function draw() { 
+      background(0); // black background 
+                     
+      let centerX = width / 2;        
+      let centerY = height / 2;            
+      let maxDist = dist(0, 0, centerX, centerY); 
+                     
+      for (let p of particlePositions) {
+        // Noise-based size          
+        let n = noise(p.x * noiseScale, p.y * noiseScale, frameCount * 0.05);        
+        let size = map(n, 0, 1, 0, 8); 
+        
+        // Brightness scales with size 
+        let brightness = map(size, 0, 8, 40, 70); // dark navy range 
+        // Opacity decreases near center      
+        let d = dist(p.x, p.y, centerX, centerY); 
+        let alpha = map(d, 0, maxDist, 0.2, 1); // 0–1 range for HSL 
+        fill(220, 100, brightness, alpha); // dark navy blue tone 
+        ellipse(p.x, p.y, size); 
+      } 
+    } 
+    
+    function windowResized() { 
+      resizeCanvas(window.innerWidth, window.innerHeight);               
+      particlePositions = [];  
+      cols = floor(width / w);                
+      rows = floor(height / w);            
+      for (let y = 0; y < rows; y++) {                       
+        for (let x = 0; x < cols; x++) {                 
+          particlePositions.push({ x: x * w, y: y * w }); 
+        } 
+      } 
+    } 
   </script> 
   
   <!-- Header with animated background --> 
