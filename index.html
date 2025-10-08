@@ -92,51 +92,65 @@
   <div id="p5-container" style="position: fixed; top: 0; left: 0; z-index: -2; width: 100%; height: 100%;"></div>
   <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.min.js"></script>
   <script>
-  let w = 10; // spacing between dots
+  let w = 25; // spacing between dots → fewer, larger dots
   let noiseScale = 0.02;
   let cols, rows;
+  let particlePositions = [];
   
   function setup() {
     let canvas = createCanvas(window.innerWidth, window.innerHeight);
     canvas.parent('p5-container');
+    colorMode(HSL);
+    noStroke();
+    
+    // Limit frame rate to reduce CPU usage
+    frameRate(30);
+  
+    // Precompute particle positions
     cols = floor(width / w);
     rows = floor(height / w);
-    colorMode(HSL); // HSL makes it easy to adjust brightness
-    noStroke();
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        particlePositions.push({ x: x * w, y: y * w });
+      }
+    }
   }
   
   function draw() {
     background(0); // black background
+  
     let centerX = width / 2;
     let centerY = height / 2;
+    let maxDist = dist(0, 0, centerX, centerY);
   
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < cols; x++) {
-        let xpos = x * w;
-        let ypos = y * w;
+    for (let p of particlePositions) {
+      // Noise-based size
+      let n = noise(p.x * noiseScale, p.y * noiseScale, frameCount * 0.05); // slightly faster offset
+      let size = map(n, 0, 1, 0, 8);
   
-        // Distance from center
-        let d = dist(xpos, ypos, centerX, centerY);
-        let maxDist = dist(0, 0, centerX, centerY);
-        let alpha = map(d, 0, maxDist, 50, 255); // more transparent near center
+      // Brightness scales with size
+      let brightness = map(size, 0, 8, 100, 180);
   
-        // Noise-based size, faster offset
-        let n = noise(x * noiseScale, y * noiseScale, frameCount * 0.05); // faster evolution
-        let size = map(n, 0, 1, 0, 8);
+      // Alpha decreases near center
+      let d = dist(p.x, p.y, centerX, centerY);
+      let alpha = map(d, 0, maxDist, 50, 255);
   
-        // Brightness scales with size (0 → 100, 8 → 180, step ~10)
-        let brightness = map(size, 0, 8, 100, 180);
-  
-        fill(0, 0, brightness, alpha);
-        ellipse(xpos, ypos, size);
-      }
+      fill(210, 100, brightness, alpha); // dark navy HSL
+      ellipse(p.x, p.y, size);
     }
   }
   
   function windowResized() {
     resizeCanvas(window.innerWidth, window.innerHeight);
+    // Recompute particle positions
+    particlePositions = [];
     cols = floor(width / w);
     rows = floor(height / w);
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        particlePositions.push({ x: x * w, y: y * w });
+      }
+    }
   }
   </script>
   
