@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.min.js"></script>
   
   <style>
     /* Global styles */
@@ -87,7 +88,76 @@
   </style>
 </head>
 <body>
+  
+  <div id="p5-container" style="position: fixed; top: 0; left: 0; z-index: -2; width: 100%; height: 100%;"></div>
+  <script>
+let particles = [];
+function setup() {
+  let canvas = createCanvas(window.innerWidth, window.innerHeight);
+  canvas.parent('p5-container');
+  noStroke();
+  colorMode(HSL);
+  for (let i = 0; i < 200; i++) {
+    particles.push({
+      x: random(width),
+      y: random(height),
+      size: random(2, 6),
+      hue: random(360),
+      offset: random(1000)
+    });
+  }
+}
 
+function draw() {
+  clear(); // transparent
+  for (let p of particles) {
+    fill(p.hue, 80, 50);
+    ellipse(p.x, p.y, p.size);
+    let angle = noise(p.offset) * TWO_PI * 2;
+    p.x += cos(angle) * 1.5;
+    p.y += sin(angle) * 1.5;
+    p.offset += 0.01;
+    if (p.x > width) p.x = 0;
+    if (p.x < 0) p.x = width;
+    if (p.y > height) p.y = 0;
+    if (p.y < 0) p.y = height;
+  }
+}
+
+// Mouse smoke trail
+let trail = [];
+function mouseMoved() {
+  trail.push({ x: mouseX, y: mouseY, size: 20, life: 30 });
+}
+function drawTrail() {
+  for (let i = trail.length - 1; i >= 0; i--) {
+    let t = trail[i];
+    fill(200, 50, 50, 0.5);
+    ellipse(t.x, t.y, t.size);
+    t.size *= 0.95;
+    t.life--;
+    if (t.life <= 0) trail.splice(i, 1);
+  }
+}
+function draw() {
+  clear();
+  // background particles
+  for (let p of particles) {
+    fill(p.hue, 80, 50);
+    ellipse(p.x, p.y, p.size);
+    let angle = noise(p.offset) * TWO_PI * 2;
+    p.x += cos(angle) * 1.5;
+    p.y += sin(angle) * 1.5;
+    p.offset += 0.01;
+    if (p.x > width) p.x = 0;
+    if (p.x < 0) p.x = width;
+    if (p.y > height) p.y = 0;
+    if (p.y < 0) p.y = height;
+  }
+  drawTrail();
+}
+</script>
+  
   <!-- Header with animated background -->
   <div class="header finisher-header" style="width: 100%; height: 450px;">
     <h1 style="color: #af0000;">Letsoof</h1>
