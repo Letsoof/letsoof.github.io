@@ -22,7 +22,7 @@
 	top: 2rem;
 	right: 2rem;
 }
-body {
+/*body {
 	display: flex;
 	place-items: center;
 	gap: 1rem;
@@ -31,7 +31,7 @@ body {
 	min-height: 100vh;
 	font-family: "SF Pro Text", "SF Pro Icons", "AOS Icons", "Helvetica Neue", Helvetica, Arial, sans-serif, system-ui;
 	background: var(--bg);
-}
+}*/
 button {
 	border-radius: 1rem;
 	text-transform: uppercase;
