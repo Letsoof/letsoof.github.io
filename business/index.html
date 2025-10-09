@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work In Progress</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      color: #8b0000;
+      font-family: Georgia, serif;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      border: 2px solid #8b0000;
+      color: #8b0000;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .button:hover {
+      background: #8b0000;
+      color: #000;
+    }
+
+    .background-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(139,0,0,0.2) 10%, transparent 70%);
+      animation: move 6s infinite linear;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes move {
+      0% { transform: translate(-25%, -25%); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+      100% { transform: translate(-25%, -25%); }
+    }
+
+    .menu-icon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #8b0000;
+      z-index: 10001;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 300px;
+      max-width: 50vw;
+      height: 100vh;
+      background-color: #111;
+      padding-top: 60px;
+      transform: translateX(-110%);
+      transition: transform 0.35s ease;
+      z-index: 10000;
+      overflow-y: auto;
+      box-shadow: 8px 0 24px rgba(139,0,0,0.2);
+      list-style: none;
+    }
+
+    .side-menu.open { transform: translateX(0); }
+
+    .side-menu ul { padding-left: 0; margin: 0; }
+    .side-menu li { padding: 8px 15px; }
+    .side-menu a { color: #8b0000; text-decoration: none; display: block; }
+    .side-menu a:hover { background: #8b0000; color: #000; }
+
+    .dropdown > .arrow { float: right; cursor: pointer; transition: transform 0.3s; }
+    .dropdown.open > .arrow { transform: rotate(90deg); }
+
+    .submenu { display: none; padding-left: 15px; }
+    .dropdown.open > .submenu { display: block; }
+
+    /* Scrollbar Styling */
+    .side-menu::-webkit-scrollbar { width: 8px; }
+    .side-menu::-webkit-scrollbar-track { background: #000; }
+    .side-menu::-webkit-scrollbar-thumb { background: #8b0000; }
+
+  </style>
+</head>
+<body>
+  <div class="background-animation"></div>
+  <h1>Work In Progress</h1>
+  <a href="https://letsoof.github.io/" class="button">Return to Main Page</a>
+
+  <div class="menu-icon">&#9776;</div>
+  <nav id="side-menu" class="side-menu">
+    <ul>
+      <li><a href="https://letsoof.github.io/">🏠 Homepage</a></li>
+      <li class="dropdown"><a href="https://letsoof.github.io/business">Business</a> <span class="arrow">&#9656;</span>
+        <ul class="submenu">
+          <li><a href="https://letsoof.github.io/business/resume">Resume</a></li>
+          <li><a href="https://letsoof.github.io/business/projects">Projects</a></li>
+        </ul>
+      </li>
+      <li class="dropdown"><a href="https://letsoof.github.io/creative">Creative</a> <span class="arrow">&#9656;</span>
+        <ul class="submenu">
+          <li class="dropdown">Original Characters <span class="arrow">&#9656;</span>
+            <ul class="submenu">
+              <li><a href="https://letsoof.github.io/creative/oc/dnd">DnD/Pathfinder</a></li>
+              <li><a href="https://letsoof.github.io/creative/oc/superhero">Superhero Story</a></li>
+              <li><a href="https://letsoof.github.io/creative/oc/others">Others</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">Art <span class="arrow">&#9656;</span>
+            <ul class="submenu">
+              <li><a href="https://letsoof.github.io/creative/art/commissions">Commissions</a></li>
+              <li><a href="https://letsoof.github.io/creative/art/artfight">Art Fight</a></li>
+              <li><a href="https://letsoof.github.io/creative/art/oc">Original Character Drawings</a></li>
+              <li><a href="https://letsoof.github.io/creative/art/bg">Background Drawings</a></li>
+              <li><a href="https://letsoof.github.io/creative/art/other">Other</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <script>
+    function toggleMenu() {
+      const sideMenu = document.getElementById('side-menu');
+      if (sideMenu) sideMenu.classList.toggle('open');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuIcon = document.querySelector('.menu-icon');
+      if (menuIcon) {
+        menuIcon.addEventListener('click', function(e){ e.stopPropagation(); toggleMenu(); });
+      }
+
+      document.querySelectorAll('.dropdown > .arrow').forEach(function(arrow){
+        arrow.addEventListener('click', function(e){
+          e.stopPropagation();
+          const parent = e.target.parentElement;
+          parent.classList.toggle('open');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
