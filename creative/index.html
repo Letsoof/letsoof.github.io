@@ -107,7 +107,7 @@
   <h1>Work In Progress</h1>
   <a href="https://letsoof.github.io/" class="button">Return to Main Page</a>
   <!-- Navigation Icon and Pop-out Menu -->
-  <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+  <div class="menu-icon" role="button" tabindex="0" aria-expanded="false">&#9776;</div>
   <nav id="side-menu" class="side-menu">
     <ul class="menu-list">
       <li><a href="https://letsoof.github.io/" class="menu-link">Root</a></li>
@@ -184,63 +184,54 @@
     </ul>
   </nav>
   <script>
-    function toggleMenu() {
-      document.getElementById('side-menu').classList.toggle('open');
-    }
-    document.querySelectorAll('.dropdown > .arrow').forEach(arrow => {
-      arrow.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const parent = e.target.parentElement;
-        parent.classList.toggle('open');
-      });
-    });
-    // Dropdown toggle and arrow rotation
-    document.querySelectorAll('.dropdown > .arrow').forEach(arrow => {
-      arrow.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const parent = e.target.parentElement;
-        parent.classList.toggle('open');
-      });
-    });
-    // Highlight active link based on current URL
-    const currentPath = window.location.pathname;
-    document.querySelectorAll('.menu-link, .submenu a').forEach(link => {
-      if (link.getAttribute('href') === currentPath) {
-        link.classList.add('active');
-      }
-    });
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuIcon = document.querySelector('.menu-icon');
-      const sideMenu = document.getElementById('side-menu');
-      function toggleMenu() {
-        if (!sideMenu) return;
-        sideMenu.classList.toggle('open');
-        if (menuIcon) {
-          const expanded = sideMenu.classList.contains('open');
-          menuIcon.setAttribute('aria-expanded', expanded);
-        }
-      }
-      if (menuIcon) {
-        // ensure keyboard accessibility
-        menuIcon.setAttribute('role','button');
-        menuIcon.setAttribute('tabindex','0');
-        menuIcon.addEventListener('click', toggleMenu);
-        menuIcon.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
-        });
-      }
+document.addEventListener('DOMContentLoaded', function() {
+  const menuIcon = document.querySelector('.menu-icon');
+  const sideMenu = document.getElementById('side-menu');
 
-      // Close menu when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!sideMenu || !menuIcon) return;
-        if (!sideMenu.contains(e.target) && !menuIcon.contains(e.target)) {
-          sideMenu.classList.remove('open');
-          if (menuIcon) menuIcon.setAttribute('aria-expanded', 'false');
-        }
-      });
+  function toggleMenu() {
+    if (!sideMenu) return;
+    sideMenu.classList.toggle('open');
+    if (menuIcon) menuIcon.setAttribute('aria-expanded', sideMenu.classList.contains('open'));
+  }
+
+  if (menuIcon) {
+    menuIcon.addEventListener('click', function(e){ e.stopPropagation(); toggleMenu(); });
+    menuIcon.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); } });
+  }
+
+  // Close when clicking outside the menu
+  document.addEventListener('click', function(e){
+    if (!sideMenu) return;
+    if (sideMenu.classList.contains('open') && !sideMenu.contains(e.target) && !menuIcon.contains(e.target)) {
+      sideMenu.classList.remove('open');
+      if (menuIcon) menuIcon.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Prevent clicks inside menu from bubbling and accidentally closing
+  if (sideMenu) {
+    sideMenu.addEventListener('click', function(e){ e.stopPropagation(); });
+  }
+
+  // Setup arrow toggles (only arrow clicks)
+  document.querySelectorAll('.dropdown > .arrow').forEach(function(arrow){
+    arrow.addEventListener('click', function(e){
+      e.stopPropagation();
+      const parent = e.target.parentElement;
+      parent.classList.toggle('open');
     });
-  </script>
-</body>
+  });
+
+  // Highlight active link by comparing pathnames
+  const currentPath = window.location.pathname;
+  document.querySelectorAll('.menu-link, .submenu a').forEach(function(link){
+    try {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      const url = new URL(href, window.location.origin);
+      if (url.pathname === currentPath) link.classList.add('active');
+    } catch (err) { /* ignore malformed URLs */ }
+  });
+
+});
 </html>
