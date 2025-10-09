@@ -14,7 +14,7 @@
       align-items: center;
       background-color: #000;
       color: #8b0000;
-      font-family: Arial, sans-serif;
+      font-family: Georgia, serif;
       overflow: hidden;
     }
 
@@ -208,6 +208,38 @@
       if (link.getAttribute('href') === currentPath) {
         link.classList.add('active');
       }
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuIcon = document.querySelector('.menu-icon');
+      const sideMenu = document.getElementById('side-menu');
+      function toggleMenu() {
+        if (!sideMenu) return;
+        sideMenu.classList.toggle('open');
+        if (menuIcon) {
+          const expanded = sideMenu.classList.contains('open');
+          menuIcon.setAttribute('aria-expanded', expanded);
+        }
+      }
+      if (menuIcon) {
+        // ensure keyboard accessibility
+        menuIcon.setAttribute('role','button');
+        menuIcon.setAttribute('tabindex','0');
+        menuIcon.addEventListener('click', toggleMenu);
+        menuIcon.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
+        });
+      }
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!sideMenu || !menuIcon) return;
+        if (!sideMenu.contains(e.target) && !menuIcon.contains(e.target)) {
+          sideMenu.classList.remove('open');
+          if (menuIcon) menuIcon.setAttribute('aria-expanded', 'false');
+        }
+      });
     });
   </script>
 </body>
