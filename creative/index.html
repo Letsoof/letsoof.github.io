@@ -184,56 +184,29 @@
     </ul>
   </nav>
   <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const menuIcon = document.querySelector('.menu-icon');
-  const sideMenu = document.getElementById('side-menu');
-
   function toggleMenu() {
-    if (!sideMenu) return;
-    sideMenu.classList.toggle('open');
-    if (menuIcon) menuIcon.setAttribute('aria-expanded', sideMenu.classList.contains('open'));
-  }
-
-  if (menuIcon) {
-    menuIcon.addEventListener('click', function(e){ e.stopPropagation(); toggleMenu(); });
-    menuIcon.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); } });
-  }
-
-  // Close when clicking outside the menu
-  document.addEventListener('click', function(e){
-    if (!sideMenu) return;
-    if (sideMenu.classList.contains('open') && !sideMenu.contains(e.target) && !menuIcon.contains(e.target)) {
-      sideMenu.classList.remove('open');
-      if (menuIcon) menuIcon.setAttribute('aria-expanded', 'false');
+    const sideMenu = document.getElementById('side-menu');
+    if (sideMenu) {
+      sideMenu.classList.toggle('open');
     }
-  });
-
-  // Prevent clicks inside menu from bubbling and accidentally closing
-  if (sideMenu) {
-    sideMenu.addEventListener('click', function(e){ e.stopPropagation(); });
   }
-
-  // Setup arrow toggles (only arrow clicks)
-  document.querySelectorAll('.dropdown > .arrow').forEach(function(arrow){
-    arrow.addEventListener('click', function(e){
-      e.stopPropagation();
-      const parent = e.target.parentElement;
-      parent.classList.toggle('open');
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuIcon = document.querySelector('.menu-icon');
+    if (menuIcon) {
+      menuIcon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleMenu();
+      });
+    }
+    // Simple arrow toggle
+    document.querySelectorAll('.dropdown > .arrow').forEach(function(arrow){
+      arrow.addEventListener('click', function(e){
+        e.stopPropagation();
+        const parent = e.target.parentElement;
+        parent.classList.toggle('open');
+      });
     });
   });
-
-  // Highlight active link by comparing pathnames
-  const currentPath = window.location.pathname;
-  document.querySelectorAll('.menu-link, .submenu a').forEach(function(link){
-    try {
-      const href = link.getAttribute('href');
-      if (!href) return;
-      const url = new URL(href, window.location.origin);
-      if (url.pathname === currentPath) link.classList.add('active');
-    } catch (err) { /* ignore malformed URLs */ }
-  });
-
-});
 </script>
 </body>
 </html>
