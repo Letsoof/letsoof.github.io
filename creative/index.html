@@ -14,7 +14,7 @@
       align-items: center;
       background-color: #000;
       color: #8b0000;
-      font-family: Georgia, serif;
+      font-family: Arial, sans-serif;
       overflow: hidden;
     }
 
@@ -68,44 +68,147 @@
     .side-menu {
       position: fixed;
       top: 0;
-      left: -200px;
-      width: 200px;
+      left: -25vw;
+      width: 25vw;
+      max-width: 300px;
       height: 100%;
       background-color: #111;
-      display: flex;
-      flex-direction: column;
+      display: block;
       padding-top: 60px;
       transition: left 0.3s ease;
       z-index: 999;
+      overflow-y: auto;
     }
     .side-menu a {
-      padding: 15px 20px;
+      padding: 10px 15px;
       text-decoration: none;
       color: #8b0000;
-      font-size: 1.2rem;
-      border-bottom: 1px solid #8b0000;
+      font-size: 1rem;
+      display: block;
+    }
+    .submenu a { padding-left: 30px; }
+    .submenu .submenu a { padding-left: 45px; }
+    .submenu .submenu .submenu a { padding-left: 60px; }
+    .arrow { cursor: pointer; float: right; transition: transform 0.3s; }
+    .dropdown.open > .arrow { transform: rotate(90deg); }
+    .active { background-color: #8b0000; color: #000; }
     }
     .side-menu.open {
       left: 0;
     }
+      /* Scrollbar Styling */
+    .side-menu::-webkit-scrollbar { width: 8px; }
+    .side-menu::-webkit-scrollbar-track { background: #000; }
+    .side-menu::-webkit-scrollbar-thumb { background: #8b0000; }
   </style>
 </head>
 <body>
   <div class="background-animation"></div>
   <h1>Work In Progress</h1>
-  <a href="/" class="button">Return to Main Page</a>
+  <a href="https://letsoof.github.io/" class="button">Return to Main Page</a>
   <!-- Navigation Icon and Pop-out Menu -->
   <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-  <div id="side-menu" class="side-menu">
-    <a href="/page1">Page 1</a>
-    <a href="/page2">Page 2</a>
-    <a href="/page3">Page 3</a>
-  </div>
+  <nav id="side-menu" class="side-menu">
+    <ul class="menu-list">
+      <li><a href="https://letsoof.github.io/" class="menu-link">Root</a></li>
+      <li class="dropdown">Business <span class="arrow">&#9662;</span>
+        <ul class="submenu">
+          <li><a href="https://letsoof.github.io/business/resume">Resume</a></li>
+          <li><a href="https://letsoof.github.io/business/projects">Projects</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">Creative <span class="arrow">&#9662;</span>
+        <ul class="submenu">
+          <li class="dropdown">Original Characters <span class="arrow">&#9656;</span>
+            <ul class="submenu">
+              <li><a href="https://letsoof.github.io/creative/oc/dnd">DnD/Pathfinder</a></li>
+              <li><a href="https://letsoof.github.io/creative/oc/superhero">Superhero Story</a></li>
+              <li><a href="https://letsoof.github.io/creative/oc/others">Others</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">Art <span class="arrow">&#9656;</span>
+            <ul class="submenu">
+              <li><a href="https://letsoof.github.io/creative/art/commissions">Commissions</a></li>
+              <li><a href="https://letsoof.github.io/creative/art/artfight">Art Fight</a></li>
+              <li><a href="https://letsoof.github.io/creative/art/oc">OC Drawings</a></li>
+              <li><a href="https://letsoof.github.io/creative/art/bg">BG Drawings</a></li>
+              <li><a href="https://letsoof.github.io/creative/art/other">Other</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">Writing <span class="arrow">&#9656;</span>
+            <ul class="submenu">
+              <li><a href="https://letsoof.github.io/creative/writing/superhero-story">Superhero Story</a></li>
+              <li><a href="https://letsoof.github.io/creative/writing/fate-caught-up">When the Die is Cast, Fate will have caught up</a></li>
+            </ul>
+          </li>
+          <li><a href="https://letsoof.github.io/creative/3d-models">3D Models</a></li>
+          <li class="dropdown">Music <span class="arrow">&#9656;</span>
+            <ul class="submenu">
+              <li><a href="https://letsoof.github.io/creative/music/gay-move">Gay Move</a></li>
+              <li><a href="https://letsoof.github.io/creative/music/other">Other</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">DnD Stuff / Pathfinder Stuff <span class="arrow">&#9656;</span>
+            <ul class="submenu">
+              <li><a href="https://letsoof.github.io/creative/dnd/token-borders">Token Borders</a></li>
+              <li><a href="https://letsoof.github.io/creative/dnd/maps">Maps</a></li>
+              <li><a href="https://letsoof.github.io/creative/dnd/magic-items">Magic Items</a></li>
+              <li><a href="https://letsoof.github.io/creative/dnd/cursed-items">Cursed Items</a></li>
+              <li><a href="https://letsoof.github.io/creative/dnd/custom-classes">Custom Classes</a></li>
+              <li><a href="https://letsoof.github.io/creative/dnd/custom-races">Custom Races</a></li>
+              <li><a href="https://letsoof.github.io/creative/dnd/custom-backgrounds">Custom Backgrounds</a></li>
+              <li><a href="https://letsoof.github.io/creative/dnd/other">Other</a></li>
+            </ul>
+          </li>
+          <li><a href="https://letsoof.github.io/creative/tier-lists">Tier Lists</a></li>
+          <li><a href="https://letsoof.github.io/creative/gaming-stuff">Gaming Stuff</a></li>
+          <li class="dropdown">Game Dev / Programming <span class="arrow">&#9656;</span>
+            <ul class="submenu">
+              <li><a href="https://letsoof.github.io/creative/gamedev/minecraft-modding">Minecraft Modding</a></li>
+              <li><a href="https://letsoof.github.io/creative/gamedev/scratch">Scratch</a></li>
+              <li><a href="https://letsoof.github.io/creative/gamedev/space-game">Space Game</a></li>
+              <li><a href="https://letsoof.github.io/creative/gamedev/letsoof-bot">Letsoof Bot / Oof Beats</a></li>
+              <li><a href="https://letsoof.github.io/creative/gamedev/rpgvx">RPGVX</a></li>
+              <li><a href="https://letsoof.github.io/creative/gamedev/wildwood-clash">Wildwood Clash</a></li>
+            </ul>
+          </li>
+          <li><a href="https://letsoof.github.io/creative/memes">Memes</a></li>
+          <li class="dropdown">Other <span class="arrow">&#9656;</span>
+            <ul class="submenu">
+              <li><a href="https://letsoof.github.io/creative/other/font">Seilaolvolure Font</a></li>
+              <li><a href="https://letsoof.github.io/creative/other/language">Seilaolvolure Language</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
   <script>
     function toggleMenu() {
       document.getElementById('side-menu').classList.toggle('open');
     }
+    document.querySelectorAll('.dropdown > .arrow').forEach(arrow => {
+      arrow.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const parent = e.target.parentElement;
+        parent.classList.toggle('open');
+      });
+    });
+    // Dropdown toggle and arrow rotation
+    document.querySelectorAll('.dropdown > .arrow').forEach(arrow => {
+      arrow.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const parent = e.target.parentElement;
+        parent.classList.toggle('open');
+      });
+    });
+    // Highlight active link based on current URL
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.menu-link, .submenu a').forEach(link => {
+      if (link.getAttribute('href') === currentPath) {
+        link.classList.add('active');
+      }
+    });
   </script>
 </body>
 </html>
-
