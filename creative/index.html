@@ -49,9 +49,10 @@
 
     /* Dropdown layout: keep the link and arrow on one line */
     .dropdown{position:relative;padding-right:10px}
-    .dropdown > a{display:inline-block;vertical-align:middle;font-weight:600}
-    .dropdown > .arrow{display:inline-block;vertical-align:middle;margin-left:10px;font-size:1.6rem;line-height:1;cursor:pointer;transition:transform .22s ease}
-    .dropdown.open > .arrow{transform:rotate(90deg)}
+    .dropdown .row{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
+    .dropdown .row > a{display:inline-block;vertical-align:middle;font-weight:600;white-space:nowrap}
+    .dropdown .row > .arrow{display:inline-block;vertical-align:middle;margin-left:5px;font-size:1.6rem;line-height:1;cursor:pointer;transition:transform .22s ease}
+    .dropdown.open > .row > .arrow{transform:rotate(90deg)}
 
     /* Submenus appear below the row */
     .submenu{display:none;margin-top:6px;padding-left:14px}
@@ -92,8 +93,7 @@
       <li class="home-row"><a href="https://letsoof.github.io/">🏠 Homepage</a></li>
 
       <li class="dropdown">
-        <a href="https://letsoof.github.io/business">Business</a>
-        <span class="arrow">▸</span>
+        <div class="row"><a href="https://letsoof.github.io/business">Business</a><span class="arrow">▸</span></div>
         <ul class="submenu">
           <li><a href="https://letsoof.github.io/business/resume">Resume</a></li>
           <li><a href="https://letsoof.github.io/business/projects">Projects</a></li>
@@ -101,13 +101,11 @@
       </li>
 
       <li class="dropdown">
-        <a href="https://letsoof.github.io/creative">Creative</a>
-        <span class="arrow">▸</span>
+        <div class="row"><a href="https://letsoof.github.io/creative">Creative</a><span class="arrow">▸</span></div>
         <ul class="submenu">
 
           <li class="dropdown">
-            <a href="https://letsoof.github.io/creative/oc">Original Characters</a>
-            <span class="arrow">▸</span>
+            <div class="row"><a href="https://letsoof.github.io/creative/oc">Original Characters</a><span class="arrow">▸</span></div>
             <ul class="submenu">
               <li><a href="https://letsoof.github.io/creative/oc/dnd">DnD/Pathfinder</a></li>
               <li><a href="https://letsoof.github.io/creative/oc/superhero">Superhero Story</a></li>
@@ -116,8 +114,7 @@
           </li>
 
           <li class="dropdown">
-            <a href="https://letsoof.github.io/creative/art">Art</a>
-            <span class="arrow">▸</span>
+            <div class="row"><a href="https://letsoof.github.io/creative/art">Art</a><span class="arrow">▸</span></div>
             <ul class="submenu">
               <li><a href="https://letsoof.github.io/creative/art/commissions">Commissions</a></li>
               <li><a href="https://letsoof.github.io/creative/art/artfight">Art Fight</a></li>
@@ -128,19 +125,17 @@
           </li>
 
           <li class="dropdown">
-            <a href="https://letsoof.github.io/creative/writing">Writing</a>
-            <span class="arrow">▸</span>
+            <div class="row"><a href="https://letsoof.github.io/creative/writing">Writing</a><span class="arrow">▸</span></div>
             <ul class="submenu">
               <li><a href="https://letsoof.github.io/creative/writing/superhero-story">Superhero Story</a></li>
-              <li><a href="https://letseof.github.io/creative/writing/fate-caught-up">When the Die is Cast, Fate will have caught up</a></li>
+              <li><a href="https://letsoof.github.io/creative/writing/fate-caught-up">When the Die is Cast, Fate will have caught up</a></li>
             </ul>
           </li>
 
           <li><a href="https://letsoof.github.io/creative/3d-models">3D Models</a></li>
 
           <li class="dropdown">
-            <a href="https://letsoof.github.io/creative/music">Music</a>
-            <span class="arrow">▸</span>
+            <div class="row"><a href="https://letsoof.github.io/creative/music">Music</a><span class="arrow">▸</span></div>
             <ul class="submenu">
               <li><a href="https://letsoof.github.io/creative/music/gay-move">Gay Move</a></li>
               <li><a href="https://letsoof.github.io/creative/music/other">Other</a></li>
@@ -148,8 +143,7 @@
           </li>
 
           <li class="dropdown">
-            <a href="https://letsoof.github.io/creative/dnd">DnD Stuff / Pathfinder Stuff</a>
-            <span class="arrow">▸</span>
+            <div class="row"><a href="https://letsoof.github.io/creative/dnd">DnD Stuff / Pathfinder Stuff</a><span class="arrow">▸</span></div>
             <ul class="submenu">
               <li><a href="https://letsoof.github.io/creative/dnd/token-borders">Token Borders</a></li>
               <li><a href="https://letsoof.github.io/creative/dnd/maps">Maps</a></li>
@@ -162,72 +156,23 @@
             </ul>
           </li>
 
-          <li><a href="https://letsoof.github.io/creative/tier-lists">Tier Lists</a></li>
-          <li><a href="https://letsoof.github.io/creative/gaming-stuff">Gaming Stuff</a></li>
-
-          <li class="dropdown">
-            <a href="https://letsoof.github.io/creative/gamedev">Game Dev / Programming</a>
-            <span class="arrow">▸</span>
-            <ul class="submenu">
-              <li><a href="https://letsoof.github.io/creative/gamedev/minecraft-modding">Minecraft Modding</a></li>
-              <li><a href="https://letsoof.github.io/creative/gamedev/scratch">Scratch</a></li>
-              <li><a href="https://letsoof.github.io/creative/gamedev/space-game">Space Game</a></li>
-              <li><a href="https://letsoof.github.io/creative/gamedev/letsoof-bot">Letsoof Bot / Oof Beats</a></li>
-              <li><a href="https://letsoof.github.io/creative/gamedev/rpgvx">RPGVX</a></li>
-              <li><a href="https://letsoof.github.io/creative/gamedev/wildwood-clash">Wildwood Clash</a></li>
-            </ul>
-          </li>
-
-          <li><a href="https://letsoof.github.io/creative/memes">Memes</a></li>
-
-          <li class="dropdown">
-            <a href="https://letsoof.github.io/creative/other">Other</a>
-            <span class="arrow">▸</span>
-            <ul class="submenu">
-              <li><a href="https://letsoof.github.io/creative/other/font">Seilaolvolure Font</a></li>
-              <li><a href="https://letsoof.github.io/creative/other/language">Seilaolvolure Language</a></li>
-            </ul>
-          </li>
-
         </ul>
       </li>
-
     </ul>
   </nav>
 
   <script>
-    (function(){
-      function normalize(h){ try { return new URL(h,location.origin).href.replace(/\/$/,""); } catch(e) { return h.replace(/\/$/,"") }
-      }
+    const menuIcon=document.querySelector('.menu-icon');
+    const sideMenu=document.getElementById('side-menu');
+    menuIcon.addEventListener('click',()=>{sideMenu.classList.toggle('open')});
 
-      document.addEventListener('DOMContentLoaded',function(){
-        const menuIcon = document.querySelector('.menu-icon');
-        const side = document.getElementById('side-menu');
-        if(menuIcon && side) menuIcon.addEventListener('click',function(e){ e.stopPropagation(); side.classList.toggle('open'); });
-
-        // arrow toggles (only the arrow expands)
-        document.querySelectorAll('.dropdown > .arrow').forEach(function(arrow){
-          arrow.addEventListener('click',function(e){ e.stopPropagation(); const li = this.parentElement; if(li) li.classList.toggle('open'); });
-        });
-
-        // highlight current page and open parents
-        const current = normalize(location.href);
-        document.querySelectorAll('#side-menu a').forEach(function(a){
-          try{
-            if(normalize(a.href) === current){
-              a.classList.add('active');
-              // open parent dropdowns so active is visible
-              let parent = a.closest('.submenu');
-              while(parent){
-                const parentDropdown = parent.parentElement; if(parentDropdown && parentDropdown.classList.contains('dropdown')) parentDropdown.classList.add('open');
-                parent = parentDropdown ? parentDropdown.closest('.submenu') : null;
-              }
-            }
-          }catch(e){}
-        });
-
+    document.querySelectorAll('.dropdown .row > .arrow').forEach(arrow=>{
+      arrow.addEventListener('click',e=>{
+        const dropdown=arrow.closest('.dropdown');
+        dropdown.classList.toggle('open');
+        e.stopPropagation();
       });
-    })();
+    });
   </script>
 </body>
 </html>
