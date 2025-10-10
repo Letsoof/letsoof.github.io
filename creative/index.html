@@ -49,12 +49,14 @@
 
     /* Dropdown layout: keep the link and arrow on one line */
     .dropdown{position:relative;padding-right:10px}
-    .dropdown .row > a{display:inline-block;vertical-align:middle;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .dropdown .row > .arrow{display:inline-block;vertical-align:middle;margin-left:10px;font-size:1.6rem;line-height:1;cursor:pointer;transition:transform .22s ease}
+    .dropdown > a{display:inline-block;vertical-align:middle;font-weight:600}
+    .dropdown > .arrow{display:inline-block;vertical-align:middle;margin-left:10px;font-size:1.6rem;line-height:1;cursor:pointer;transition:transform .22s ease}
     .dropdown.open > .arrow{transform:rotate(90deg)}
 
     /* Submenus appear below the row */
-    .submenu{display:none;margin-top:6px;padding-left:20px;border-bottom:none}
+    .submenu{display:none;margin-top:6px;padding-left:14px}
+    .dropdown.open > .submenu{display:block}
+    .submenu li{padding:6px 6px;border-bottom:none}
     .submenu a{display:block;padding:4px 6px}
 
     /* deeper indentation */
